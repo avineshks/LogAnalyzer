@@ -1,4 +1,9 @@
 
+Introduction:
+
+A simple and flexible python tool to analyze multiple log files at once, it outputs number of lines before and below the occurrence of pattern in log files and also generate the stats about number of occurences of pattern in files. This will help in narrow down your effort to finding out relevent information. By default, it searches for Error and Exceptions in logs and generate report. Default report may be useful in indicating unusual behavior of application. 
+
+
 Setting up:
 
 1.	Copy the loganalyzer.zip to /tmp  directory on Linux box.
