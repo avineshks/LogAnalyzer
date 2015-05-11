@@ -23,15 +23,16 @@ Pre-requisite: Put all files under one folder for remote mode described later.
 
 Remoteloganalyzer has two mode: 1. Local 2. Remote 
 
-1.	Local mode:   means your logs files are on same host from where you are executing script.
-           
-          python remoteloganalyzer.py local –c <configfilename> -r <reportfileName>
-          For more check help using command -  python remoteloganalyzer.py local –h
+1.  Local mode:   means your logs files are on same host from where you are executing script.
 
-2.	Remote mode:   means your logs files are on different host from where you are executing script.
+            python remoteloganalyzer.py local –c <configfilename> -r <reportfileName>
+            For more check help using command -  python remoteloganalyzer.py local –h
 
-          python remoteloganalyzer.py remote –i <ip> -u <user> -p <pass> –c <configfilename> -r <reportfileName>
-          For more check help using command -  python remoteloganalyzer.py remote –h
+2.  Remote mode:   means your logs files are on different host from where you are executing script.
+
+            python remoteloganalyzer.py remote –i <ip> -u <user> -p <pass> –c <configfilename> 
+            -r <reportfileName>
+            For more check help using command -  python remoteloganalyzer.py remote –h
 
 You can check help to run the script using command: - python remoteloganalyzer.py –h
 
