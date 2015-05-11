@@ -23,6 +23,7 @@ def loadproperties(pfile):
             # print "in else"
             for i in iterator:
                 c = arrayc[i]
+                hasbackslash = 0
                 if c == '\\':
                     # print "back"
                     isback = 1
@@ -35,21 +36,23 @@ def loadproperties(pfile):
                     for k in range(0, hasbackslash/2):
                         key += '\\'
                 else:
-                    if not sepindex and not (c == '=' or c == ':'):
+                    if not sepindex and not (c == '=' or c == ':' or c == '\n' or c == '\r'):
                         key += c
 
                 c = arrayc[i]
+                # print c
                 if not (hasbackslash % 2) and (c == '=' or c == ':'):
                     # print "sepindex has", i, c
                     hasbackslash = 0
-                    sepindex = i
+                    if not sepindex:
+                        sepindex = i
                     continue
                 elif (hasbackslash % 2) and (c == '=' or c == ':'):
                     key += c
                 else:
                     hasbackslash = 0
 
-                # print c
+                # print key
                 if c == '#' or c == '\n':
                     endi = i
                     # print "endindex", i
@@ -61,16 +64,18 @@ def loadproperties(pfile):
             # print "key: ", key
             if sepindex:
                 if isback:
-                    properties.__setitem__(key.strip(), ''.join(arrayc[sepindex + 1:endi]).strip())
+                    properties.__setitem__(key.strip(), ''.join(arrayc[sepindex + 1:endi+1]).strip())
                 else:
-                    properties.__setitem__(''.join(arrayc[0:sepindex]).strip(), ''.join(arrayc[sepindex + 1:endi]).strip())
+                    properties.__setitem__(''.join(arrayc[0:sepindex]).strip(), ''.join(arrayc[sepindex + 1:endi+1]).strip())
             else:
-                properties.__setitem__(''.join(arrayc[0:endi]).strip(), '')
+                if isback:
+                    properties.__setitem__(key.strip(), '')
+                else:
+                    properties.__setitem__(''.join(arrayc[0:endi]).strip(), '')
 
     return properties
 
-props = loadproperties('properties.txt')
-print props
+
 
 
 
