@@ -3,17 +3,37 @@ Introduction:
 
 A simple and flexible python tool to analyze multiple log files at once, it outputs number of lines before and below the occurrence of pattern in log files and also generate the stats about number of occurences of pattern in files. This will help in narrow down your effort to finding out relevent information. By default, it searches for Error and Exceptions in logs and generate report. Default report may be useful in indicating unusual behavior of application. 
 
+Note: It is compatible only with Linux remote server. For remote windows machine, copy the log files using other tools and run the script in local mode- described later.
 
-Setting up:
+Steps to setup for windows:
 
-1.	Copy the loganalyzer.zip to /tmp  directory on Linux box.
-2.	Execute the command:-   unzip -o loganalyzer.zip ; cd loganalyzer
-3.	Set up the analyzer.properties accordingly. See help.
+1.	Download and Install python 2.7 for windows from here- https://www.python.org/downloads/release/python-279/
+2.	Download and Install MS VC++ compiler for python 2.7 from http://www.microsoft.com/en-us/download/details.aspx?id=44266 
+3.	Run this command from cmd- C:\Python27\Scripts\pip.exe install paramiko
 
-Analyzing logs:
+Steps to setup for linux:
 
-4.	Execute command:   python loganalyzer.py
+1.	Run this command-  pip install paramiko
 
+
+You can skip the step if already done otherwise you should follow the steps as paramiko installation depends on MS VC++ compiler for windows only.
+
+Instruction to run:
+Pre-requisite: Put all files under one folder for remote mode described later.
+
+Remoteloganalyzer has two mode: 1. Local 2. Remote 
+
+1.	Local mode:   means your logs files are on same host from where you are executing script.
+           
+          python remoteloganalyzer.py local –c <configfilename> -r <reportfileName>
+          For more check help using command -  python remoteloganalyzer.py local –h
+
+2.	Remote mode:   means your logs files are on different host from where you are executing script.
+
+          python remoteloganalyzer.py remote –i <ip> -u <user> -p <pass> –c <configfilename> -r <reportfileName>
+          For more check help using command -  python remoteloganalyzer.py remote –h
+
+You can check help to run the script using command: - python remoteloganalyzer.py –h
 
 Properties File Help:
 
@@ -39,18 +59,23 @@ Properties File Help:
 
         search.keywords=
         Note: You may leave this empty if disable.default.search is false(0).
+        
+7.	exclude.keyword.list --> [search.keywords.seperator] separated keywords or regex to tell analyzer to exclude the line.
 
-7.	disable.default.search --> to disable the default search for Error and Exception that program has.
+        exclude.keyword.list = class\.method,INFO,DEBUG
+        Note: You may leave this empty.
+
+8.	disable.default.search --> to disable the default search for Error and Exception that program has.
 
         Value 0 -> false
         Value 1 -> True
         disable.default.search=0
 
-8.	time.in.hr --> hours. Analyzer will analyze the logs file generated in past one hour. Value 0 will disable this feature and enable the time.in.min feature.
+9.	time.in.hr --> hours. Analyzer will analyze the logs file generated in past one hour. Value 0 will disable this feature and enable the time.in.min feature.
 
         time.in.hr=1
 
-9.	time.in.min --> minutes. Analyzer will analyze the logs file generated in past one minute.
+10.	time.in.min --> minutes. Analyzer will analyze the logs file generated in past one minute.
 
         time.in.min=1
 
