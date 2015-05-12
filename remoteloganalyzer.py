@@ -154,8 +154,16 @@ def runonlinuxserver(ssh, files_to_copy, analyzer_root, analyzer_reports_root, r
 
     with open(os.path.join(reportdir, report), 'w') as reportfile:
         logger.info("generating report...")
-        reportfile.writelines(catstdout.readlines())
-        reportfile.writelines(catstderr.readlines())
+        # reportfile.writelines(catstdout.readlines())
+        # reportfile.writelines(catstderr.readlines())
+        for line in catstdout.readlines():
+            utf8_version = line.encode('utf-8')
+            reportfile.write(utf8_version)
+
+        for line in catstderr.readlines():
+            line_err = line.encode('utf-8')
+            reportfile.write(line_err)
+            
         reportfile.flush()
         logger.info(
             "Report is generated. Please check the report here: " + os.path.join(reportdir, report))
